@@ -7,14 +7,11 @@ function [h,Nfft,Nifft,doppler_coeff]=FWGN_model(fm,fs,N)
 % Output
 %   h = Complex fading channel
  
-%MIMO-OFDM Wireless Communications with MATLAB��   Yong Soo Cho, Jaekwon Kim, Won Young Yang and Chung G. Kang
-%2010 John Wiley & Sons (Asia) Pte Ltd
- 
-% Make them simple by taking a FFT with some 2^n points.
-% tone spacing df=2fm/Nfft
+% Make them simple by taking a FFT with some 2^n points. %为了简便，FFT大小为2^n
+% tone spacing df=2fm/Nfft                               %载波间隔为df=2fm/Nfft 
 Nfft = 2^max(3,nextpow2(2*fm/fs*N));  % Nfft=2^n
 Nifft = ceil(Nfft*fs/(2*fm));
-% Generate the inependent complex gaussian random process. 
+% Generate the inependent complex gaussian random process.  &产生两路复高斯噪声
 GI = randn(1,Nfft); 
 GQ = randn(1,Nfft);
 % take FFT of real signal in order to make hermitian symmetric
